@@ -23,14 +23,15 @@ export const Board = () => {
     }
 
   const postData = () => {
-    axios.post("http://localhost:5000/board",state).then((res) => {
-    
-    })
+    axios.post("https://crimecheck-noticeboard.herokuapp.com/board",state).then((res) => {
+    alert("Notice Added")
     window.location.reload()
+    })
+   
   }
 
   const getData = () => {
-    axios.get("http://localhost:5000/board").then((res) => {
+    axios.get("https://crimecheck-noticeboard.herokuapp.com/board").then((res) => {
         setData(res.data)
     })
   }
@@ -56,7 +57,6 @@ export const Board = () => {
         data.map((e) =><Box key={e._id}>
             
             <Box>{e.description}</Box>
-            <Box>{e.user}</Box>
             <Box>{e.createdAt}</Box>
             </Box> )
     }

@@ -48,7 +48,7 @@ export const Signup = () => {
   const register   =(e)=>{
     e.preventDefault()
     
-      axios.post("http://localhost:5000/register",user).then(res=>{
+      axios.post("https://crimecheck-noticeboard.herokuapp.com/register",user).then(res=>{
         // console.log(res.data.user)
         alert(res.data.message)
         let msg = res.data.message;

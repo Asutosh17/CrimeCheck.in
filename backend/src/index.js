@@ -22,7 +22,7 @@ const data = require("./controllers/data.controller");
 app.use("/board", data);
 
 
-const port = 5000 || process.env.PORT
+const port =  process.env.PORT || 5000
 app.listen(port, async () => {
     try{
         await connect()
