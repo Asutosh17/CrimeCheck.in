@@ -10,6 +10,7 @@ export const Board = () => {
 
     const [state, setState] = useState("")
     const [data, setData] =  useState([])
+    
 
     const handleChange = (e) => {
         const{name,value} =e.target
@@ -31,7 +32,9 @@ export const Board = () => {
 
   const getData = () => {
     axios.get("https://crimecheck-noticeboard.herokuapp.com/board").then((res) => {
-        setData(res.data)
+        setData(
+          res.data,
+        )
     })
   }
 
@@ -40,38 +43,43 @@ export const Board = () => {
   },[])
 
   return (
-    <>
-    <Box
-      component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
+    <div>
+    <div className='container'>
+    <h1>Notice Board</h1>
+    
 
       {/* <TextField id="outlined-basic" label="Submit a Notice" variant="outlined"  /> */}
 
       <TextField
-          id="outlined-textarea"
+          id="standard-multiline-static"
           label="Submit a Notice"
           placeholder="Enter your Notice Here"
           multiline
+          rows={3}
           name='description'
           onChange={handleChange}
+          sx={{width:'100%', marginBottom:'30px'}}
         />
     
-    </Box>
     
       
-      <Button variant="contained" onClick={postData}>Submit</Button>
+      <Button variant="contained" color='secondary' sx={{width:'80%'}} onClick={postData}>Submit</Button>
 
-    <div>
+      </div> 
+
+    <div className='datadiv'>
 
     {
-      data.map((e) =><Box key={e._id}>
+      data.map((e) =><div key={e._id}>
             
-            <Box>{e.description}</Box>
-            <Box>{e.createdAt}</Box>
-            </Box> )
+            <h4>{e.description}</h4>
+            <p className='created'>{e.createdAt}</p>
+            </div> )
     }
     </div>
 
 
-    </>
+    
+    </div>
   );
 }
