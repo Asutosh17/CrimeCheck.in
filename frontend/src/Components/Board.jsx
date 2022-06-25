@@ -24,7 +24,7 @@ export const Board = () => {
 
   const postData = () => {
     axios.post("https://crimecheck-noticeboard.herokuapp.com/board",state).then((res) => {
-    alert("Notice Added")
+    // alert("Notice Added")
     window.location.reload()
     })
    
@@ -34,6 +34,7 @@ export const Board = () => {
     axios.get("https://crimecheck-noticeboard.herokuapp.com/board").then((res) => {
         setData(
           res.data,
+          ...data
         )
     })
   }
@@ -67,10 +68,10 @@ export const Board = () => {
 
       </div> 
 
-    <div className='datadiv'>
+    <div className='mapping'>
 
     {
-      data.map((e) =><div key={e._id}>
+      data.map((e) =><div key={e._id} className="datadiv">
             
             <h4>{e.description}</h4>
             <p className='created'>{e.createdAt}</p>
