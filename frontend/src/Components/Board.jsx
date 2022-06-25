@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import axios from 'axios';
@@ -45,21 +44,32 @@ export const Board = () => {
     <Box
       component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
 
-      <TextField id="outlined-basic" label="Submit a Notice" variant="outlined" name='description' onChange={handleChange}/>
+      {/* <TextField id="outlined-basic" label="Submit a Notice" variant="outlined"  /> */}
+
+      <TextField
+          id="outlined-textarea"
+          label="Submit a Notice"
+          placeholder="Enter your Notice Here"
+          multiline
+          name='description'
+          onChange={handleChange}
+        />
     
     </Box>
     
       
       <Button variant="contained" onClick={postData}>Submit</Button>
 
+    <div>
 
     {
-        data.map((e) =><Box key={e._id}>
+      data.map((e) =><Box key={e._id}>
             
             <Box>{e.description}</Box>
             <Box>{e.createdAt}</Box>
             </Box> )
     }
+    </div>
 
 
     </>

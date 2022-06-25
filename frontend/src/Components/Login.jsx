@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import validator from 'validator'
-
+import './style.css'
 
 
 
@@ -13,7 +13,7 @@ export const Login = () => {
       username:"",
       password:"",
   })
-//const [name,SetName]=useState("")
+
   const [errorMessage, setErrorMessage] = useState('')
  
   const validate = (value,id) => {
@@ -22,7 +22,7 @@ export const Login = () => {
       minLength: 8, minLowercase: 1,
       minUppercase: 1, minNumbers: 1, minSymbols: 1
     })) {
-      // handleChange()
+      
       setUser({...user,
         [id]:value})
       setErrorMessage('Strong Password')
@@ -45,7 +45,7 @@ export const Login = () => {
       })
   }
 
-  const register  = (e)=>{
+  const login  = (e)=>{
     e.preventDefault()
     
       axios.post("https://crimecheck-noticeboard.herokuapp.com/login",{
@@ -63,19 +63,9 @@ export const Login = () => {
         else{
             navigate("/")
         }
-         //navname(res.data.user)
-    //    return;
  
  })
-//  .catch((err)=>{
-//    alert("pls try diffrent mail or username")
-//    console.log(err)
-//  })
-//     }
-//     else{
-//       alert("password not macth")
-  
-//     }
+
      
   }
  
@@ -83,15 +73,18 @@ export const Login = () => {
   return (
     <div>
   
-    <div className='signup' >
-       <h2>Login</h2>
-       <form onSubmit={register}>
+    <div className='login' >
+
+      <h1>Welcome to Notice Board</h1>
+
+       <h2>Login Here</h2>
+       <form onSubmit={login} className="form">
     
-       <label >User Name</label><br />
-    <input type="text" required id="username" value={user.username} placeholder="Enter user name" onChange={handleChange} /><br />
+       <label className='field'>User Name</label>
+    <input type="text" required id="username" value={user.username} placeholder="Enter user name" onChange={handleChange} />
     
-    <label >password</label><br />
-    <input type="text" required id="password" maxLength={8} placeholder="Enter password" onChange={(e) => validate(e.target.value,e.target.id)} /><br />
+    <label className='field'>Password</label>
+    <input type="password" required id="password" maxLength={8} placeholder="Enter password" onChange={(e) => validate(e.target.value,e.target.id)} /><br />
 
     {errorMessage === '' ? null :
         <span style={{
@@ -99,12 +92,12 @@ export const Login = () => {
         }}>{errorMessage}</span>}
         <br />
     
-    <input type="submit"  /><br />
+    <input type="submit"  />
 
-    <label className="label" htmlFor="">Don't have an account?</label>
-        <Link to="/register">Register</Link>
+    <p className='note'><span><b>Don't have an account?</b> </span><Link to="/register">Register Here</Link></p>
 
-            </form>
-    </div></div>
+          </form>
+    </div>
+    </div>
   )
 }

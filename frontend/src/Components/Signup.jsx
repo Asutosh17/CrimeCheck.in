@@ -13,7 +13,7 @@ export const Signup = () => {
       username:"",
       password:"",
   })
-//const [name,SetName]=useState("")
+
   const [errorMessage, setErrorMessage] = useState('')
  
   const validate = (value,id) => {
@@ -22,7 +22,7 @@ export const Signup = () => {
       minLength: 8, minLowercase: 1,
       minUppercase: 1, minNumbers: 1, minSymbols: 1
     })) {
-      // handleChange()
+      
       setUser({...user,
         [id]:value})
       setErrorMessage('Strong Password')
@@ -49,7 +49,7 @@ export const Signup = () => {
     e.preventDefault()
     
       axios.post("https://crimecheck-noticeboard.herokuapp.com/register",user).then(res=>{
-        // console.log(res.data.user)
+       
         alert(res.data.message)
         let msg = res.data.message;
         if(msg == "Successfully Registered"){
@@ -67,15 +67,7 @@ export const Signup = () => {
        
  
  })
-//  .catch((err)=>{
-//    alert("pls try diffrent mail or username")
-//    console.log(err)
-//  })
-//     }
-//     else{
-//       alert("password not macth")
-  
-//     }
+
      
   }
  
@@ -83,15 +75,15 @@ export const Signup = () => {
   return (
     <div>
   
-    <div className='signup' >
-       <h2>register</h2>
-       <form onSubmit={register}>
+    <div>
+       <h2>Register Here</h2>
+       <form onSubmit={register} className='form'>
     
-       <label >User Name</label><br />
+       <label className='field'>User Name</label><br />
     <input type="text" required id="username" value={user.username} placeholder="Enter Your Username" onChange={handleChange} /><br />
     
-    <label >password</label><br />
-    <input type="text" required id="password" maxLength={10} placeholder="Enter your password" onChange={(e) => validate(e.target.value,e.target.id)} /><br />
+    <label className='field'>Password</label><br />
+    <input type="password" required id="password" maxLength={10} placeholder="Enter your password" onChange={(e) => validate(e.target.value,e.target.id)} /><br />
 
     {errorMessage === '' ? null :
         <span style={{
@@ -99,7 +91,7 @@ export const Signup = () => {
         }}>{errorMessage}</span>}
         <br />
 
-        <p>Note : Username password must be Alphaneumeric and password length must be more than 8 </p>
+        <p className='note'><b>Note :</b> Username password must be Alphaneumeric and Password length must be 8 or more than 8 </p>
     
     <input type="submit"  />
             </form>
