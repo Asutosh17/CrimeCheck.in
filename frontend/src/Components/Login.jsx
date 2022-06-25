@@ -82,7 +82,7 @@ export const Login = () => {
             type="password"
             required
             id="password"
-            maxLength={8}
+            maxLength={10}
             placeholder="Enter password"
             onChange={e => validate(e.target.value, e.target.id)}
           />

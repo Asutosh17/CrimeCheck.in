@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Board = () => {
   const [state, setState] = useState("");
@@ -42,8 +43,8 @@ export const Board = () => {
   return (
     <div>
       <div className="container">
-        <h1>Notice Board</h1>
-        
+        <h1><Link to="/" style={{textDecoration:'none'}}>Notice Board</Link></h1>
+
         <TextField
           id="standard-multiline-static"
           label="Submit a Notice"
