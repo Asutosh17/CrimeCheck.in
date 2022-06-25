@@ -1,86 +1,78 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
-import axios from 'axios';
-import { useEffect } from 'react';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 export const Board = () => {
+  const [state, setState] = useState("");
+  const [data, setData] = useState([]);
 
-    const [state, setState] = useState("")
-    const [data, setData] =  useState([])
-    
+  const handleChange = e => {
+    const { name, value } = e.target;
 
-    const handleChange = (e) => {
-        const{name,value} =e.target
-
-        setState({
-            ...state,
-            [name]:value,
-    
-        })
-    }
+    setState({
+      ...state,
+      [name]: value,
+    });
+  };
 
   const postData = () => {
-    axios.post("https://crimecheck-noticeboard.herokuapp.com/board",state).then((res) => {
-    // alert("Notice Added")
-    window.location.reload()
-    })
-   
-  }
+    axios
+      .post("https://crimecheck-noticeboard.herokuapp.com/board", state)
+      .then(res => {
+        // alert("Notice Added")
+        window.location.reload();
+      });
+  };
 
   const getData = () => {
-    axios.get("https://crimecheck-noticeboard.herokuapp.com/board").then((res) => {
-        setData(
-          res.data,
-          ...data
-        )
-    })
-  }
+    axios
+      .get("https://crimecheck-noticeboard.herokuapp.com/board")
+      .then(res => {
+        setData(res.data, ...data);
+      });
+  };
 
   useEffect(() => {
-    getData()
-  },[])
+    getData();
+  }, []);
 
   return (
     <div>
-    <div className='container'>
-    <h1>Notice Board</h1>
-    
-
-      {/* <TextField id="outlined-basic" label="Submit a Notice" variant="outlined"  /> */}
-
-      <TextField
+      <div className="container">
+        <h1>Notice Board</h1>
+        
+        <TextField
           id="standard-multiline-static"
           label="Submit a Notice"
           placeholder="Enter your Notice Here"
           multiline
           rows={3}
-          name='description'
+          name="description"
           onChange={handleChange}
-          sx={{width:'100%', marginBottom:'30px'}}
+          sx={{ width: "100%", marginBottom: "30px" }}
         />
-    
-    
-      
-      <Button variant="contained" color='secondary' sx={{width:'80%'}} onClick={postData}>Submit</Button>
 
-      </div> 
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ width: "80%" }}
+          onClick={postData}
+        >
+          Submit
+        </Button>
+      </div>
 
-    <div className='mapping'>
-
-    {
-      data.map((e) =><div key={e._id} className="datadiv">
-            
+      <div className="mapping">
+        {data.map(e => (
+          <div key={e._id} className="datadiv">
             <h4>{e.description}</h4>
-            <p className='created'>{e.createdAt}</p>
-            </div> )
-    }
-    </div>
-
-
-    
+            <p className="created">{e.createdAt}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
